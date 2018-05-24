@@ -1,4 +1,4 @@
-package com.oyyd.Dao;
+package com.oyyd.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

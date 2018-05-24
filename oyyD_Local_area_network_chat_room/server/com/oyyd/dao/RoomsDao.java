@@ -1,4 +1,4 @@
-package com.oyyd.Dao;
+package com.oyyd.dao;
 
 import java.util.Set;
 
@@ -32,7 +32,7 @@ public class RoomsDao {
 		private UsersDao.Entry init_per;
 		private String password;
 		private Set<UsersDao.Entry> parts = null;
-		public Entry(int id, String name, com.oyyd.Dao.UsersDao.Entry init_per, String password) {
+		public Entry(int id, String name, com.oyyd.dao.UsersDao.Entry init_per, String password) {
 			super();
 			this.id = id;
 			this.name = name;

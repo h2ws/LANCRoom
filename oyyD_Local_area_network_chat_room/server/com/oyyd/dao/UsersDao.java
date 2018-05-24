@@ -1,6 +1,13 @@
-package com.oyyd.Dao;
+package com.oyyd.dao;
 
 
+/**
+* Title: UsersDao
+* Description: 
+* Version:1.0.0  
+* @author 28468
+* @date 2018�?5�?23�?
+*/
 public class UsersDao {
 	static public void register(String nickname) {
 		
