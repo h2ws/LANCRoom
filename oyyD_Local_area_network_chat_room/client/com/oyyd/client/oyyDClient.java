@@ -11,11 +11,11 @@ import java.util.regex.*;
 
 public class oyyDClient {
 	public static void main(String[] arjgs) {
-		/* µÇÂ¼ */
-		//0. ÉèÖÃ·şÎñ¶Ë IP port
-		//1.×¢²á »òÕß µÇÂ¼
-		//·¢ÏÖÉÏ´ÎÊ¹ÓÃµÄ·şÎñ¶ËĞÅÏ¢£¬ÊÇ·ñÊ¹ÓÃ£¿X
-		//»ò.Î´·¢ÏÖ·şÎñ¶ËĞÅÏ¢£¬ÇëÊÖ¶¯ÊäÈëX
+		/* ç™»å½• */
+		//0. è®¾ç½®æœåŠ¡ç«¯ IP port
+		//1.æ³¨å†Œ æˆ–è€… ç™»å½•
+		//å‘ç°ä¸Šæ¬¡ä½¿ç”¨çš„æœåŠ¡ç«¯ä¿¡æ¯ï¼Œæ˜¯å¦ä½¿ç”¨ï¼ŸX
+		//æˆ–.æœªå‘ç°æœåŠ¡ç«¯ä¿¡æ¯ï¼Œè¯·æ‰‹åŠ¨è¾“å…¥X
 
 		Scanner sc = new Scanner(System.in);
 		String IP = sc.next();
@@ -23,17 +23,17 @@ public class oyyDClient {
 		oyyDClient client = new oyyDClient();
 		client.server = getServer(IP, port);
 		
-		//µÇÂ¼´óÑ­»· begin:
+		//ç™»å½•å¤§å¾ªç¯ begin:
 		big: while(true) {
-			System.out.println("ÌáÊ¾£ºÊäÈër¼ü£¬×¢²á¡£ÈôÒÑÓĞÕË»§£¬ÊäÈëÆäËûÈÎÒâ¼ü¼´¿É");
+			System.out.println("æç¤ºï¼šè¾“å…¥ré”®ï¼Œæ³¨å†Œã€‚è‹¥å·²æœ‰è´¦æˆ·ï¼Œè¾“å…¥å…¶ä»–ä»»æ„é”®å³å¯");
 			String tidy = null;
 			tidy = sc.next();
-			//Ñ¡ÔñÊÇ·ñ½øÈë×¢²á×ÓÏµÍ³
+			//é€‰æ‹©æ˜¯å¦è¿›å…¥æ³¨å†Œå­ç³»ç»Ÿ
 			
 			
-			//×¢²á begin
+			//æ³¨å†Œ begin
 			while(tidy.equals("r")) {
-				System.out.println("ÒÑ½øÈë×¢²á×ÓÏµÍ³£¬ÊäÈë@c·µ»ØÉÏÒ»¼¶");
+				System.out.println("å·²è¿›å…¥æ³¨å†Œå­ç³»ç»Ÿï¼Œè¾“å…¥@cè¿”å›ä¸Šä¸€çº§");
 				String rg_user = sc.next();
 				String rg_password = sc.next();
 				if ( rg_user.equals("@c") || rg_password.equals("@c") ) {
@@ -41,33 +41,33 @@ public class oyyDClient {
 				}
 				client.user_entry = client.server.regUser(rg_user, rg_password);
 				if (client.user_entry == null) {
-					System.out.println("×¢²áÊ§°Ü");
+					System.out.println("æ³¨å†Œå¤±è´¥");
 				}
 				else {
-					System.out.println("×¢²á³É¹¦£¬ÒÑÍË³ö×¢²á×ÓÏµÍ³");
+					System.out.println("æ³¨å†ŒæˆåŠŸï¼Œå·²é€€å‡ºæ³¨å†Œå­ç³»ç»Ÿ");
 					continue big;
 				}
 			}
-			//×¢²á end
+			//æ³¨å†Œ end
 			
-			System.out.println("ÊäÈëÄãµÄÓÃ»§ÃûºÍÃÜÂë");
+			System.out.println("è¾“å…¥ä½ çš„ç”¨æˆ·åå’Œå¯†ç ");
 
 			String user = sc.next();
 			String password = sc.next();
 			
 			client.user_entry = client.server.login("user", "password");
 			if (client.user_entry != null) {
-				System.out.println("µÇÂ¼³É¹¦£¡");
+				System.out.println("ç™»å½•æˆåŠŸï¼");
 				break;
 			}
 			else {
-				System.out.println("µÇÂ¼Ê§°Ü£¬ÇëÔÙ´ÎÊäÈë£¡");
+				System.out.println("ç™»å½•å¤±è´¥ï¼Œè¯·å†æ¬¡è¾“å…¥ï¼");
 			}
 		}
-		//µÇÂ¼Ñ­»· end
+		//ç™»å½•å¾ªç¯ end
 	
 		
-		//Ö÷Ñ­»·£¬ Ñ­»·Ìá½»ÃüÁî¡£
+		//ä¸»å¾ªç¯ï¼Œ å¾ªç¯æäº¤å‘½ä»¤ã€‚
 		while(true) {
 			String order = sc.next();
 			client.server.exe_order(order);
@@ -100,17 +100,17 @@ public class oyyDClient {
 	static private void resetting() {
 		Scanner sc = new Scanner(System.in);
 		boolean yesorno;
-		System.out.println("ÊäÈë·şÎñ¶ËIPºÍ¶Ë¿Ú£¬ÀıÈç£º135.32.53.12:8123");
+		System.out.println("è¾“å…¥æœåŠ¡ç«¯IPå’Œç«¯å£ï¼Œä¾‹å¦‚ï¼š135.32.53.12:8123");
 		do {
 			String ser_adr = sc.next();
 			
-			// ±í´ïÊ½¶ÔÏó(±È½Ï´Ö²ÚµÄÑéÖ¤
+			// è¡¨è¾¾å¼å¯¹è±¡(æ¯”è¾ƒç²—ç³™çš„éªŒè¯
 			Pattern p = Pattern.compile("^(\\d{1,3}\\.){3}\\d{1,3}:\\d{1,10}$");
 			
-			// ´´½¨ Matcher ¶ÔÏó
+			// åˆ›å»º Matcher å¯¹è±¡
 			Matcher m = p.matcher(ser_adr);
 			
-			// ÊÇ·ñÍêÈ«Æ¥Åä
+			// æ˜¯å¦å®Œå…¨åŒ¹é…
 			 yesorno = m.matches();
 		}
 		while (!yesorno);

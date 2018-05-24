@@ -26,21 +26,21 @@ public class oyyDServer {
 		if(order == null)return;
 		
 		if (order.charAt(0) == '@') {
-			//ÃüÁîÇø
+			//å‘½ä»¤åŒº
 			String[] order_items= order.split("\\s+");
 			switch(order_items[0]) { 
-				case "help":System.out.println("ÄãÇóÎÒÑ½~");break;
-				case "room_list": /* Êı¾İ¿â²éÑ¯Ò»ÏÂ */break;
+				case "help":System.out.println("ä½ æ±‚æˆ‘å‘€~");break;
+				case "room_list": /* æ•°æ®åº“æŸ¥è¯¢ä¸€ä¸‹ */break;
 				case "new_room": /*par name [password] */break;
-				case "join_room": /*par name [password] :¿ÉÍ¨¹ıid»òÕßname¼ÓÈë*/break;
+				case "join_room": /*par name [password] :å¯é€šè¿‡idæˆ–è€…nameåŠ å…¥*/break;
 				case "out_room": break;
 				case "set_room": break;
-				default: System.out.println("ÎŞĞ§µÄÃüÁî");
+				default: System.out.println("æ— æ•ˆçš„å‘½ä»¤");
 			}
 			
 		}
 		else {
-			//ÏûÏ¢Çø
+			//æ¶ˆæ¯åŒº
 			
 		}
 	}
@@ -59,33 +59,33 @@ public class oyyDServer {
 	throws Exception {
 		/*  */
 		if(user == null) {
-			throw new Exception("Òì³£... user == null");
+			throw new Exception("å¼‚å¸¸... user == null");
 		}
-		//--------¼«¶Ë´úÂë----------------------
+		//--------æç«¯ä»£ç ----------------------
 		
 		
 		
 		if (room == null) {
-			System.out.println("·¿¼ä²»´æÔÚ");
+			System.out.println("æˆ¿é—´ä¸å­˜åœ¨");
 			return false;
 		}
 		
 
 		if(password == null && room.getPassword() != null) {
-			System.out.println("´Ë·¿¼äĞèÒªÃÜÂë");
+			System.out.println("æ­¤æˆ¿é—´éœ€è¦å¯†ç ");
 			return false;
 		}
 		else if(password != null && room.getPassword() != null && !password.equals(room.getPassword()) ) {
-			System.out.println("ÃÜÂë²»ÕıÈ·");
+			System.out.println("å¯†ç ä¸æ­£ç¡®");
 			return false;
 		}
-		/*else:ÃÜÂëÕıÈ·*/
+		/*else:å¯†ç æ­£ç¡®*/
 		
-		if(/*ÒÑ¾­ÔÚ·¿¼äÀï*/) {
-			System.out.println("ÒÑ¾­ÔÚ´Ë·¿¼äÁË");
+		if(/*å·²ç»åœ¨æˆ¿é—´é‡Œ*/) {
+			System.out.println("å·²ç»åœ¨æ­¤æˆ¿é—´äº†");
 		}
 		else {
-			/*Ê¹ÓÃ»§¼ÓÈë´Ë·¿¼ä*/
+			/*ä½¿ç”¨æˆ·åŠ å…¥æ­¤æˆ¿é—´*/
 			
 		}
 	}

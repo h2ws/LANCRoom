@@ -9,8 +9,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ReadThread extends Thread{
-	//Õâ¸öÏß³Ì»ØÈ¥port¶Ë¿Ú¼ì²éÓĞÃ»ÓĞÊı¾İ°ü£¬Ò»Ö±×èÈû
-	//Ö±µ½ÓĞÊı¾İ°ü£¬ÏÔÊ¾£¬È»ºó¼ÌĞø×èÈû¼ì²éÊı¾İ°ü
+	//è¿™ä¸ªçº¿ç¨‹å›å»portç«¯å£æ£€æŸ¥æœ‰æ²¡æœ‰æ•°æ®åŒ…ï¼Œä¸€ç›´é˜»å¡
+	//ç›´åˆ°æœ‰æ•°æ®åŒ…ï¼Œæ˜¾ç¤ºï¼Œç„¶åç»§ç»­é˜»å¡æ£€æŸ¥æ•°æ®åŒ…
 	
 	private int port;
 	public void run() {
@@ -21,19 +21,19 @@ public class ReadThread extends Thread{
 			Socket sk = null;
 			while (true) {
 				sk = ssk.accept();
-				//×èÈû£¬Ö±µ½ÓĞport¶Ë¿ÚÓĞÊı¾İ°ü
+				//é˜»å¡ï¼Œç›´åˆ°æœ‰portç«¯å£æœ‰æ•°æ®åŒ…
 				
 				InputStream ism = sk.getInputStream();
 				Reader reader= new InputStreamReader(ism);
-				//»ñÈ¡Êı¾İ°üµÄÊı¾İÁ÷£¬ÎªÁË·½±ã£¬´î½¨ÇÅÁºÁ÷ £¨InputStreamReader
+				//è·å–æ•°æ®åŒ…çš„æ•°æ®æµï¼Œä¸ºäº†æ–¹ä¾¿ï¼Œæ­å»ºæ¡¥æ¢æµ ï¼ˆInputStreamReader
 
 				BufferedReader bufreader = new BufferedReader(reader);
-				//Îª·½±ã£¬´î½¨»º³åÁ÷ £¨¿ÉÒÔÒ»´Î¶ÁÈ¡Ò»ĞĞ×Ö·û´®
+				//ä¸ºæ–¹ä¾¿ï¼Œæ­å»ºç¼“å†²æµ ï¼ˆå¯ä»¥ä¸€æ¬¡è¯»å–ä¸€è¡Œå­—ç¬¦ä¸²
 				
 				String line = bufreader.readLine();
 				System.out.println("I:"+line);
 				
-				//¶ÁÈ¡Ò»ĞĞ£¬²¢Êä³ö£¬½øÈëÏÂÂÖ £¨ÕâÀï¼ÙÉèÖ»·¢ËÍµ¥ĞĞÊı¾İ
+				//è¯»å–ä¸€è¡Œï¼Œå¹¶è¾“å‡ºï¼Œè¿›å…¥ä¸‹è½® ï¼ˆè¿™é‡Œå‡è®¾åªå‘é€å•è¡Œæ•°æ®
 				
 				ism.close();
 				reader.close();

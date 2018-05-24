@@ -10,22 +10,22 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Person_A {
-	//¿ªÆôÒ»¸ö ½ÓÊÕĞÅÏ¢µÄ Ïß³Ì
+	//å¼€å¯ä¸€ä¸ª æ¥æ”¶ä¿¡æ¯çš„ çº¿ç¨‹
 	//  A:8123  B:8222
 	public static void main(String[] args) throws UnknownHostException, IOException {
 
 		Scanner sc = new Scanner(System.in);
-		System.out.print("ÊäÈë½ÓÊÜĞÅÏ¢µÄ¶Ë¿Ú");
+		System.out.print("è¾“å…¥æ¥å—ä¿¡æ¯çš„ç«¯å£");
 		int accpt_port = sc.nextInt();
 		ReadThread readthread = new ReadThread(accpt_port);
 		readthread.start();
 		
-		System.out.print("ÊäÈëÊä³öĞÅÏ¢µÄ¶Ë¿Ú");
+		System.out.print("è¾“å…¥è¾“å‡ºä¿¡æ¯çš„ç«¯å£");
 		int out_port = sc.nextInt();
 		String ip = sc.next();
-		//×èÈû£¬Ö±µ½ÊäÈëÒ»ĞĞÊı¾İ²¢È·¶¨
-		//»á·¢Êı¾İ·¢ËÍµ½Ä³¸ö¶Ë¿Ú
-		//½øÈëÏÂÂÖÑ­»·£¬¼ÌĞø×èÈû
+		//é˜»å¡ï¼Œç›´åˆ°è¾“å…¥ä¸€è¡Œæ•°æ®å¹¶ç¡®å®š
+		//ä¼šå‘æ•°æ®å‘é€åˆ°æŸä¸ªç«¯å£
+		//è¿›å…¥ä¸‹è½®å¾ªç¯ï¼Œç»§ç»­é˜»å¡
 		
 		while(true) {
 //			Scanner sc = new Scanner(System.in);

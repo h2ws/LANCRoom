@@ -5,23 +5,23 @@ import java.util.Set;
 public class RoomsDao {
 	
 	static public Set<RoomsDao.Entry> getRooms(){
-		/*»ñÈ¡ËùÓĞ·¿¼ä
-		 * ´ÓÊı¾İ¿â»ñÈ¡ËùÓĞRoom
+		/*è·å–æ‰€æœ‰æˆ¿é—´
+		 * ä»æ•°æ®åº“è·å–æ‰€æœ‰Room
 		 * */
 	}
 	
 	static public RoomsDao.Entry getRoom(int id){
-		/* ²éÑ¯id£¬»ñÈ¡·¿¼ä */
+		/* æŸ¥è¯¢idï¼Œè·å–æˆ¿é—´ */
 		return null;
 	}
 	
 	static public RoomsDao.Entry getRoom(String name) {
-		/* ²éÑ¯name£¬»ñÈ¡·¿¼ä */
+		/* æŸ¥è¯¢nameï¼Œè·å–æˆ¿é—´ */
 		return null;
 	}
 	
 	static public RoomsDao.Entry createRoom(String name, UsersDao.Entry user, String password) {
-		/* ´ÓÊı¾İ¿â¹¹ÔìÒ»¸öĞÂ·¿¼ä, ²¢»ñÈ¡´Ë·¿µÄid£¬ÓÃÓÚ¹¹ÔìÏàÓ¦µÄÊµÌå*/
+		/* ä»æ•°æ®åº“æ„é€ ä¸€ä¸ªæ–°æˆ¿é—´, å¹¶è·å–æ­¤æˆ¿çš„idï¼Œç”¨äºæ„é€ ç›¸åº”çš„å®ä½“*/
 		RoomsDao.Entry entry = new RoomsDao.Entry(-999, name, user, password);
 		return entry;
 	}
