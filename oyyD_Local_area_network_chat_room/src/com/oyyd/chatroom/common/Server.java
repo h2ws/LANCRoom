@@ -16,13 +16,10 @@ public abstract class Server {
 	public abstract void help();
 
 	/**
-	 * @param strOrder 运行命令
-	 * 使用服务端执行命令
+	 * 获取一个协调线程
+	 * :所有服务端反馈都由它接收处理
+	 * @return
 	 */
-	public abstract void execOrder(String strOrder);
+	public abstract Thread getConcertThread();
 	
-	/**
-	 * @return 反馈信息的线程 
-	 */
-	public abstract Thread getThread();
 }

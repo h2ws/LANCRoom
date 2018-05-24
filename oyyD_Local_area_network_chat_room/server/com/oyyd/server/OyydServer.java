@@ -2,7 +2,13 @@ package com.oyyd.server;
 
 import com.oyyd.dao.RoomsDao;
 import com.oyyd.dao.UsersDao;
+import com.oyyd.chatroom.common.SimpleSocket;
 import com.oyyd.client.OyydClient;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -11,8 +17,38 @@ import java.util.Set;
 * Version:1.0.0  
 * @author 28468
 * @date 2018年5月24日
+* 步骤
+* 1.接收信息 					(接收线程 
+* 2.解析成任务,追加至任务队列  (解析线程
+* 3.弹出一个任务,执行			(执行线程
 */
 public class OyydServer {
+	private Queue<String> strtaskqueue;
+	private Queue<Task>  realtaskqueue;
+	public static final int RECEIVE_PORT = 100011;
+	
+	public void help(){
+		System.out.println("感觉这个不对劲");
+	}
+	
+	public void start(){
+		
+		//接收10011端口的数据包，并追加至strtaskqueue
+		Thread receivethread = ThreadPool.getReceiveThread(strtaskqueue, RECEIVE_PORT);
+
+		//弹出strtaskqueue，解析成task追加职realtaskqueue
+		Thread parsethread = ThreadPool.getParseThread(strtaskqueue, realtaskqueue);
+
+		//弹出realtaskqueue，执行
+		Thread execthread = ThreadPool.getExecThread(realtaskqueue);
+		
+		receivethread.start();
+		parsethread.start();
+		execthread.start();
+	}
+	
+	
+	/*
 	public OyydServer() {
 		this.rooms = RoomsDao.getRooms();
 	}
@@ -67,9 +103,9 @@ public class OyydServer {
 		}
 		else {
 			//消息区
-			/* 发送消息 */
+			// 发送消息 
 		}
-		/*
+		
 		//登录大循环 begin:
 		big: while(true) {
 			String tidy = null;
@@ -111,7 +147,7 @@ public class OyydServer {
 			}
 		}
 		//登录循环 end
-		 * */
+		
 	}
 	
 	private Set<RoomsDao.Entry> rooms;
@@ -126,7 +162,7 @@ public class OyydServer {
 	
 	private boolean join_room (RoomsDao.Entry room, UsersDao.Entry user, String password)
 	throws Exception {
-		/*  */
+	
 		if(user == null) {
 			throw new Exception("异常... user == null");
 		}
@@ -148,15 +184,16 @@ public class OyydServer {
 			System.out.println("密码不正确");
 			return false;
 		}
-		/*else:密码正确*/
+		//else:密码正确
 		
-		if(/*已经在房间里*/) {
+		if(//已经在房间里) {
 			System.out.println("已经在此房间了");
 		}
 		else {
-			/*使用户加入此房间*/
+			//使用户加入此房间
 			
 		}
 	}
+	*/
 
 }

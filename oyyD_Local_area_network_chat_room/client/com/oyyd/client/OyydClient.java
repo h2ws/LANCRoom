@@ -1,8 +1,12 @@
 package com.oyyd.client;
 
 import com.oyyd.chatroom.common.Server;
+import com.oyyd.chatroom.common.SimpleSocket;
 import com.oyyd.dao.UsersDao;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.regex.*;
 
@@ -19,16 +23,6 @@ public class OyydClient {
 	 * address(host:port)验证
 	 */
 	private final static Pattern PAT_ADDRESS = Pattern.compile("^(\\d{1,3}\\.){3}\\d{1,3}:\\d{1,10}$");
-
-	/**
-	 * 客户端所连接上的服务端实例
-	 */
-	public Server connectServer = null;   
-	
-	/**
-	 * 客户端所代表的 user实体 (意见:应该把这个剥离出来,由服务端维护
-	 */
-	public UsersDao.Entry userEntry = null;
 
 	public static void main(String[] arjgs) {
 		/* 登录 */
@@ -47,50 +41,61 @@ public class OyydClient {
 		Scanner sc = new Scanner(System.in);
 		OyydClient client = new OyydClient();
 
-		String ip;
+		String host;
 		int port;
+		OyydServerConnectDevice serdevice = null;
 		if (/*有历史记录*/false) {
 			/* */
 		}
 		else {
 			String ipPort;
-			do {
+			err: do {
 				System.out.println("输入服务端ip:port");
 				ipPort = sc.next();
-			}
-			while (!isIpPort(ipPort) );
-			int signP = ipPort.indexOf(":");
+				int signP = ipPort.indexOf(":");
 
-			ip = ipPort.substring(0,  signP);
-			port = Integer.valueOf( ipPort.substring(signP + 1) );
+				host = ipPort.substring(0,  signP);
+				port = Integer.valueOf( ipPort.substring(signP + 1) );
+
+				if(!isIpPort(ipPort) )continue err;
+
+				try {
+					serdevice = new OyydServerConnectDevice();
+					serdevice.connectServer(host, port);
+				} catch (UnknownHostException e) {
+					System.out.println("UHEX:连接失败");
+					continue err;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					System.out.println("IOEX:连接失败");
+					continue err;
+				}
+
+			}
+			while (false);
+
 		}
-		client.server = client.connectServer(ip, port);
 		
 	
 		
 		//主循环， 循环提交命令。
 		while(true) {
-			String order = sc.next();
-			client.server.exe_order(order, client);
+			String sendText = sc.next();
+			try {
+				serdevice.send(sendText);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("simpleSend失败");
+			}
 		}
+		
+		//-------------new
+		
 	}           
 
 
-	/**
-	 * 连接服务端
-	 * @param ip 
-	 * @param port
-	 * @return 服务端实例
-	 */
-	private OyydServer connectServer(String ip, int port) {
-		return null;
-	}
-
 	
-	/**
-	 * 
-	 * 判断 符合ip:port格式的字符串
-	 */
 	static private boolean isIpPort(String ipPort) {
 		Scanner sc = new Scanner(System.in);
 		boolean yesorno;
@@ -105,12 +110,9 @@ public class OyydClient {
 			 yesorno = m.matches();
 		}
 		while (!yesorno);
-	}
-	
-	
-	private boolean serverLoad(String snc) {
 		return true;
 	}
+	
 	
 	
 	

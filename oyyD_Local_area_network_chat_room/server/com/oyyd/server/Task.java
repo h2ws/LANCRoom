@@ -25,7 +25,7 @@ public abstract class Task {
 	 * 获取任务id
 	 * @return 任务id
 	 */
-	public abstract int getId();
+	public abstract int getTaskId();
 	
 	/**
 	 * 将命令解析并构造成相应的任务 (无法解析就返回null
@@ -39,7 +39,7 @@ public abstract class Task {
 			}
 
 			@Override
-			public int getId() {
+			public int getTaskId() {
 				// TODO Auto-generated method stub
 				return 0;
 			}
@@ -54,7 +54,7 @@ public abstract class Task {
 	 * @return 此任务是指定的任务id
 	 */
 	public boolean isTaskId(int id) {
-		return getId() == id;
+		return getTaskId() == id;
 	}
 
 	/**
