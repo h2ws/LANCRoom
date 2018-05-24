@@ -1,11 +1,12 @@
 package com.oyyd.server;
 
-import com.oyyd.Dao.RoomsDao;
-import com.oyyd.Dao.UsersDao;
+import com.oyyd.dao.RoomsDao;
+import com.oyyd.dao.UsersDao;
+import com.oyyd.client.OyydClient;
 import java.util.Set;
 
-public class oyyDServer {
-	public oyyDServer() {
+public class OyydServer {
+	public OyydServer() {
 		this.rooms = RoomsDao.getRooms();
 	}
 
@@ -18,7 +19,7 @@ public class oyyDServer {
 		return null;
 	}
 	
-	public oyyDServer(String ip, int port) {
+	public OyydServer(String ip, int port) {
 		
 	}
 	
@@ -47,7 +48,7 @@ public class oyyDServer {
 	
 	private Set<RoomsDao.Entry> rooms;
 	
-	private boolean out_room(oyyDClient client){
+	private boolean out_room(OyydClient client){
 		client.room = null;
 	}
 
