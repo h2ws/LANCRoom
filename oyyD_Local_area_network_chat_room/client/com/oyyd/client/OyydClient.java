@@ -13,6 +13,22 @@ import java.util.regex.*;
 * @date 2018年5月24日
 */
 public class OyydClient {
+
+	/**
+	 * address(host:port)验证
+	 */
+	private final static Pattern PAT_ADDRESS = Pattern.compile("^(\\d{1,3}\\.){3}\\d{1,3}:\\d{1,10}$");
+
+	/**
+	 * 客户端所代表的 user实体
+	 */
+	public OyydServer server = null;   
+	
+	/**
+	 * 客户端所连接上的服务端实例
+	 */
+	public UsersDao.Entry userEntry = null;
+
 	public static void main(String[] arjgs) {
 		/* 登录 */
 		//0. 设置服务端 IP port
@@ -22,94 +38,59 @@ public class OyydClient {
 		
 		//步骤精简！
 		//1.连接服务端
+		//  -有历史连接记录
+		//  -输入ip:port 
+
 		//2.循环给服务端发送命令
 
 		Scanner sc = new Scanner(System.in);
-		String ip = sc.next();
-		int port = sc.nextInt();
 		OyydClient client = new OyydClient();
+
+		String ip;
+		int port;
+		if (/*有历史记录*/false) {
+			/* */
+		}
+		else {
+			String ipPort;
+			do {
+				System.out.println("输入服务端ip:port");
+				ipPort = sc.next();
+			}
+			while (!isIpPort(ipPort) );
+			int signP = ipPort.indexOf(":");
+
+			ip = ipPort.substring(0,  signP);
+			port = Integer.valueOf( ipPort.substring(signP + 1) );
+		}
 		client.server = client.connectServer(ip, port);
 		
-		//登录大循环 begin:
-		big: while(true) {
-			System.out.println("提示：输入r键，注册。若已有账户，输入其他任意键即可");
-			String tidy = null;
-			tidy = sc.next();
-			//选择是否进入注册子系统
-			
-			
-			//注册 begin (move to server
-			while("r".equals(tidy)) {
-				System.out.println("已进入注册子系统，输入@c返回上一级");
-				String rgUser = sc.next();
-				String rgPassword = sc.next();
-				if (  "@c".equals(rgUser) || "@c".equals(rgPassword) ) {
-					continue big;
-				}
-				client.userEntry = client.server.regUser(rgUser, rgPassword);
-				if (client.userEntry == null) {
-					System.out.println("注册失败");
-				}
-				else {
-					System.out.println("注册成功，已退出注册子系统");
-					continue big;
-				}
-			}
-			//注册 end
-			
-			System.out.println("输入你的用户名和密码");
-
-			String user = sc.next();
-			String password = sc.next();
-			
-			client.userEntry = client.server.login("user", "password");
-			if (client.userEntry != null) {
-				System.out.println("登录成功！");
-				break;
-			}
-			else {
-				System.out.println("登录失败，请再次输入！");
-			}
-		}
-		//登录循环 end
 	
 		
 		//主循环， 循环提交命令。
 		while(true) {
 			String order = sc.next();
-			client.server.exe_order(order);
+			client.server.exe_order(order, client);
 		}
-	}
+	}           
 
 
 	/**
-	 * 客户端所代表的 user实体
+	 * 连接服务端
+	 * @param ip 
+	 * @param port
+	 * @return 服务端实例
 	 */
-	public OyydServer server = null;           
-
-	/**
-	 * 客户端所连接上的服务端实例
-	 */
-	public UsersDao.Entry userEntry = null;   
-	
-	
-	private boolean serverLoad(String snc) {
-		return true;
-	}
-
 	private OyydServer connectServer(String ip, int port) {
 		return null;
 	}
 
 	
-	private final static Pattern PAT_ADDRESS = Pattern.compile("^(\\d{1,3}\\.){3}\\d{1,3}:\\d{1,10}$");
-	
-	
 	/**
 	 * 
-	 * 设置 服务器的pi和port
+	 * 判断 符合ip:port格式的字符串
 	 */
-	private void resetting() {
+	static private boolean isIpPort(String ipPort) {
 		Scanner sc = new Scanner(System.in);
 		boolean yesorno;
 		System.out.println("输入服务端IP和端口，例如：135.32.53.12:8123");
@@ -123,6 +104,11 @@ public class OyydClient {
 			 yesorno = m.matches();
 		}
 		while (!yesorno);
+	}
+	
+	
+	private boolean serverLoad(String snc) {
+		return true;
 	}
 	
 	
