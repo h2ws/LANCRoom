@@ -1,7 +1,8 @@
 package com.oyyd.client;
 
+import com.oyyd.chatroom.common.Server;
 import com.oyyd.dao.UsersDao;
-import com.oyyd.server.OyydServer;
+
 import java.util.Scanner;
 import java.util.regex.*;
 
@@ -20,12 +21,12 @@ public class OyydClient {
 	private final static Pattern PAT_ADDRESS = Pattern.compile("^(\\d{1,3}\\.){3}\\d{1,3}:\\d{1,10}$");
 
 	/**
-	 * 客户端所代表的 user实体
+	 * 客户端所连接上的服务端实例
 	 */
-	public OyydServer server = null;   
+	public Server connectServer = null;   
 	
 	/**
-	 * 客户端所连接上的服务端实例
+	 * 客户端所代表的 user实体 (意见:应该把这个剥离出来,由服务端维护
 	 */
 	public UsersDao.Entry userEntry = null;
 
