@@ -1,6 +1,7 @@
 package com.oyyd.server;
 
 import java.net.Socket;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ import com.oyyd.dao.UsersDao;
 * 
 */
 public class AddressPool {
+	public Set<Socket> allsocket = new HashSet<Socket>();
 	
 	/**
 	 * 登录的用户池

@@ -18,6 +18,7 @@ import java.util.Set;
 * @author 28468
 * @date 2018年5月24日
 * 步骤
+* 0.建立连接					(连接线程
 * 1.接收信息 					(接收线程 
 * 2.解析成任务,追加至任务队列  (解析线程
 * 3.弹出一个任务,执行			(执行线程
@@ -34,9 +35,14 @@ public class OyydServer {
 	}
 	
 	public void start(){
+		AddressPool addresspool = new AddressPool();
 		
 		//接收10011端口的数据包，并追加至strtaskqueue
-		Thread receivethread = ThreadPool.getReceiveThread(strtaskqueue, RECEIVE_PORT);
+		//接待10011端口的socket，将其加入socket池
+		Thread accpetthread = ThreadPool.getAcceptThread(addresspool.allsocket, RECEIVE_PORT);
+		
+		//循环遍历socket池，监听。将数据追加至strtaskqueue
+		Thread receivethread = ThreadPool.getReceiveThread(strtaskqueue, addresspool.allsocket);
 
 		//弹出strtaskqueue，解析成task追加职realtaskqueue
 		Thread parsethread = ThreadPool.getParseThread(strtaskqueue, realtaskqueue);
@@ -44,6 +50,7 @@ public class OyydServer {
 		//弹出realtaskqueue，执行
 		Thread execthread = ThreadPool.getExecThread(realtaskqueue);
 		
+		accpetthread.start();
 		receivethread.start();
 		parsethread.start();
 		execthread.start();
