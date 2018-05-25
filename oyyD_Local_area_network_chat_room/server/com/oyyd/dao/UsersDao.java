@@ -9,20 +9,27 @@ package com.oyyd.dao;
 * @date 2018年5月23日
 */
 public class UsersDao {
-	static public void register(String nickname) {
+
+	/**
+	 * username重名则抛出异常
+	 * @param username
+	 * @param pwd
+	 */
+	static public void register(String username, String pwd) {
 		
 	}
 	
 	static public class Entry {
 		private int uid;
-		private String nickname;
+		private String username;
 		private String realname ;
+		private String password;
 		private String sign;
 		private String rgdate;
 		private String birthdate;
 		
-		public Entry(String nickname) {
-			this.nickname = nickname;
+		public Entry(String username) {
+			this.username = username;
 		}
 	}
 	

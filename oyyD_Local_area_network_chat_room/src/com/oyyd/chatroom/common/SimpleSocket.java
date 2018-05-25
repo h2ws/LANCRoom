@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 * Version:1.0.0  
 * @author 28468
 * @date 2018年5月24日
-* 需协调的,可简单操作Socket
+* Socket便捷类，简单操作Socket
 * 
 */
 public class SimpleSocket {
