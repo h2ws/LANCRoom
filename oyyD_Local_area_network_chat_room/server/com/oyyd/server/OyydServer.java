@@ -26,8 +26,21 @@ import java.util.Set;
 * append 地址池到用户的字典 
 */
 public class OyydServer {
-	private Queue<String> strtaskqueue;
-	private Queue<Task>  realtaskqueue;
+	public static void main(String[] args) {
+		OyydServer server = new OyydServer();
+		server.start();
+	}
+	/**
+	 * 需要被解析的任务队列
+	 */
+	private Queue<Task.NeedParse> needparsequeue; 
+	
+	/**
+	 * 解析完成了的任务队列
+	 */
+	private Queue<Task>  parsedtaskqueue;
+	
+	
 	public static final int RECEIVE_PORT = 100011;
 	
 	public void help(){
@@ -37,23 +50,23 @@ public class OyydServer {
 	public void start(){
 		AddressPool addresspool = new AddressPool();
 		
-		//接收10011端口的数据包，并追加至strtaskqueue
 		//接待10011端口的socket，将其加入socket池
 		Thread accpetthread = ThreadPool.getAcceptThread(addresspool.allsocket, RECEIVE_PORT);
 		
 		//循环遍历socket池，监听。将数据追加至strtaskqueue
-		Thread receivethread = ThreadPool.getReceiveThread(strtaskqueue, addresspool.allsocket);
+		//接收10011端口的数据包，并追加至strtaskqueue
+		Thread receivethread = ThreadPool.getReceiveThread(needparsequeue, addresspool.allsocket);
 
 		//弹出strtaskqueue，解析成task追加职realtaskqueue
-		Thread parsethread = ThreadPool.getParseThread(strtaskqueue, realtaskqueue);
+		Thread parsethread = ThreadPool.getParseThread(needparsequeue, parsedtaskqueue);
 
 		//弹出realtaskqueue，执行
-		Thread execthread = ThreadPool.getExecThread(realtaskqueue);
+		Thread execthread = ThreadPool.getExecThread(parsedtaskqueue);
 		
-		accpetthread.start();
+		 accpetthread.start();
 		receivethread.start();
-		parsethread.start();
-		execthread.start();
+		  parsethread.start();
+		   execthread.start();
 	}
 	
 	

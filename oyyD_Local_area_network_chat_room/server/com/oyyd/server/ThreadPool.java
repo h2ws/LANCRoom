@@ -25,7 +25,7 @@ public class ThreadPool {
 	 * @param receiveport
 	 * @return
 	 */
-	static public Thread getReceiveThread(Queue<String> strtaskqueue, Set<Socket> sockets){
+	static public Thread getReceiveThread(Queue<Task.NeedParse> needparsetaskqueue, Set<Socket> sockets){
 		Thread thread = new Thread() {
 
 			@Override
@@ -36,7 +36,7 @@ public class ThreadPool {
 							SimpleSocket spsocket = new SimpleSocket(socket);
 							String line = spsocket.simpleReadLine();
 							if(line == null) continue;
-							strtaskqueue.add(line);
+							needparsetaskqueue.add(new Task.NeedParse(line, socket));
 						}
 					}
 				} catch (IOException e) {
@@ -58,29 +58,29 @@ public class ThreadPool {
 				ServerSocket svrsocket;
 				try {
 						svrsocket = new ServerSocket(accpetport);
-					while(true) {
-						Socket socketadd = svrsocket.accept();
-						sockets.add(socketadd);
-					}
+						while(true) {
+							Socket socketadd = svrsocket.accept();
+							sockets.add(socketadd);
+						}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		};
-		return null;
+		return thread;
 	}
 
-	static public Thread getParseThread(Queue<String> strtaskqueue, Queue<Task> realtaskqueue){
+	static public Thread getParseThread(Queue<Task.NeedParse> needparsetaskqueue, Queue<Task> parsedtaskqueue){
 		Thread parsethread = new Thread() {
 			@Override 
 			synchronized public void run() {
 				while(true){
-					String popstr = strtaskqueue.poll();
-					if(popstr == null) {continue;}
+					Task.NeedParse pop = needparsetaskqueue.poll();
+					if(pop == null) {continue;}
 
-					Task task = Task.parseTask(popstr);
-					realtaskqueue.add(task);
+					Task task = Task.parseTask(pop);
+					parsedtaskqueue.add(task);
 					
 				}
 

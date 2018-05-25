@@ -1,5 +1,10 @@
 package com.oyyd.server;
 
+import java.io.IOException;
+import java.net.Socket;
+
+import com.oyyd.chatroom.common.SimpleSocket;
+
 /**
 * Title: Order
 * Description: 
@@ -27,6 +32,25 @@ public abstract class Task {
 	public static final int TALK = 8;
 	
 	/**
+	* Title: NeedParse
+	* Description: 
+	* Version:1.0.0  
+	* @author 28468
+	* @date 2018年5月25日
+	* 需要被解析的，
+	* 对obj执行str命令
+	*/
+	static public class NeedParse{
+		private String operstr;
+		private Object operobj;
+		public NeedParse(String str, Object obj) {
+			this.operstr = str;
+			this.operobj = obj;
+		}
+		
+	}
+	
+	/**
 	 * 获取任务id
 	 * @return 任务id
 	 */
@@ -34,11 +58,12 @@ public abstract class Task {
 	
 	/**
 	 * 将命令解析并构造成相应的任务 (无法解析就返回null
-	 * @param str
+	 * @param str    运算符
+	 * @param obj    操作数
 	 */
-	static public Task parseTask(String str) {
+	static public Task parseTask(Task.NeedParse needparse) {
 		Task parsedtask = null;
-		String[] stage = str.split("\\s+");
+		String[] stage = needparse.operstr.split("\\s+");
 		switch(stage[0]) {
 		case "@help": parsedtask = new Task() {
 				public int getTaskId(){
@@ -46,7 +71,14 @@ public abstract class Task {
 				}
 
 				public String exec(){
-					return "这个oyyd服务端";
+					SimpleSocket spsocket = new SimpleSocket((Socket)needparse.operobj);
+					try {
+						spsocket.simpleSend("oyyd服务端的help");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return null;
 				}
 				
 			};break;

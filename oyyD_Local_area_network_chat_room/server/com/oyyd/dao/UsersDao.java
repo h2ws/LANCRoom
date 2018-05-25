@@ -19,6 +19,8 @@ public class UsersDao {
 		
 	}
 	
+//	static public 
+	
 	static public class Entry {
 		private int uid;
 		private String username;
