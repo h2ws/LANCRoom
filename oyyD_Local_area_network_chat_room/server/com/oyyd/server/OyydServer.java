@@ -21,6 +21,8 @@ import java.util.Set;
 * 1.接收信息 					(接收线程 
 * 2.解析成任务,追加至任务队列  (解析线程
 * 3.弹出一个任务,执行			(执行线程
+* 
+* append 地址池到用户的字典 
 */
 public class OyydServer {
 	private Queue<String> strtaskqueue;

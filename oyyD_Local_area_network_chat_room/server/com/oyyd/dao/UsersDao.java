@@ -6,7 +6,7 @@ package com.oyyd.dao;
 * Description: 
 * Version:1.0.0  
 * @author 28468
-* @date 2018�?5�?23�?
+* @date 2018年5月23日
 */
 public class UsersDao {
 	static public void register(String nickname) {
