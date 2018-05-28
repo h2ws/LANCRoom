@@ -4,23 +4,24 @@ import java.util.Set;
 
 public class RoomsDao {
 	
-	static public Set<RoomsDao.Entry> getRooms(){
+	static public Set<RoomsDao.Entry> selAll(){
 		/*获取所有房间
 		 * 从数据库获取所有Room
 		 * */
+		return null;
 	}
 	
-	static public RoomsDao.Entry getRoom(int id){
+	static public RoomsDao.Entry selOnly(int id){
 		/* 查询id，获取房间 */
 		return null;
 	}
 	
-	static public RoomsDao.Entry getRoom(String name) {
+	static public RoomsDao.Entry selOnly(String name) {
 		/* 查询name，获取房间 */
 		return null;
 	}
 	
-	static public RoomsDao.Entry createRoom(String name, UsersDao.Entry user, String password) {
+	static public RoomsDao.Entry add(String name, UsersDao.Entry user, String password) {
 		/* 从数据库构造一个新房间, 并获取此房的id，用于构造相应的实体*/
 		RoomsDao.Entry entry = new RoomsDao.Entry(-999, name, user, password);
 		return entry;

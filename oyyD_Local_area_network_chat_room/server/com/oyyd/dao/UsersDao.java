@@ -56,7 +56,7 @@ public class UsersDao {
 	 * @return
 	 * @throws SQLException 
 	 */
-	static public Entry setOnly(String username, String pwd) throws SQLException{
+	static public Entry selOnly(String username, String pwd) throws SQLException{
 		Connection conn = ConnectDao.getConn();
 		String sql = "select * FROM where username = ? and password = ?";
 		PreparedStatement pre = conn.prepareStatement(sql);
